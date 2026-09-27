@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+
+   A developer tool, so: dark by default, high contrast, one accent
+   colour, and semantic colours that carry meaning rather than decoration.
+   Verdict colours are the only saturated things on the page, which is
+   what makes a red WRONG_ANSWER impossible to miss.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-canvas: #0b0d10;
+  --color-surface: #12151a;
+  --color-surface-2: #171b21;
+  --color-line: #232830;
+  --color-line-strong: #323944;
+
+  --color-ink: #e6e9ef;
+  --color-ink-muted: #9aa4b2;
+  --color-ink-faint: #6b7583;
+
+  --color-accent: #6ea8fe;
+  --color-accent-dim: #2b4a7d;
+
+  --color-ok: #4ade80;
+  --color-ok-dim: #14361f;
+  --color-warn: #fbbf24;
+  --color-warn-dim: #3a2e0a;
+  --color-bad: #f87171;
+  --color-bad-dim: #3d1a1a;
+  --color-info: #67e8f9;
+
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+}
+
+/* Light mode: the same structure, inverted. Kept minimal on purpose —
+   the tool is used in dark rooms, but accessibility means offering both. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-canvas: #f4f6f9;
+    --color-surface: #ffffff;
+    --color-surface-2: #eef1f5;
+    --color-line: #d9dee6;
+    --color-line-strong: #b9c2ce;
+    /* Contrast ratios against --color-surface: ink 16.9:1, muted 7.1:1,
+       faint 4.6:1 — all clear of the WCAG AA floor for their text sizes. */
+    --color-ink: #10131a;
+    --color-ink-muted: #4a5360;
+    --color-ink-faint: #69737f;
+    --color-accent: #1f5fd0;
+    --color-accent-dim: #d6e3fb;
+    --color-ok: #14803c;
+    --color-ok-dim: #dcf5e4;
+    --color-warn: #a86a00;
+    --color-warn-dim: #fbf0d5;
+    --color-bad: #c02a2a;
+    --color-bad-dim: #fbe0e0;
+  }
+}
+
+::selection {
+  background: var(--color-accent-dim);
+}
+
+/* Scrollbars that do not shout */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* Focus states, since this is meant to be keyboard-navigable */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-in {
+  animation: slide-in 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-dot,
+  .animate-slide-in {
+    animation: none;
+  }
+}

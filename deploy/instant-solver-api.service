@@ -1,0 +1,17 @@
+[Unit]
+Description=Instant Solver engine (FastAPI)
+After=network.target
+
+[Service]
+User=@APP_USER@
+Group=@APP_USER@
+WorkingDirectory=@APP_DIR@
+EnvironmentFile=@APP_DIR@/.env
+# One worker: the concurrency caps (CPSOLVE_MAX_SOLVES / CPSOLVE_MAX_RUNS) are
+# per process, and each solve already runs in its own thread.
+ExecStart=@APP_DIR@/.venv/bin/uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 1 --proxy-headers
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

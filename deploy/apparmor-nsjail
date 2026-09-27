@@ -1,0 +1,10 @@
+# Lets nsjail create the user namespaces it isolates programs with.
+# Ubuntu 24.04 denies unprivileged user namespaces to programs without a profile.
+abi <abi/4.0>,
+include <tunables/global>
+
+profile nsjail @NSJAIL_BIN@ flags=(unconfined) {
+  userns,
+
+  include if exists <local/nsjail>
+}
