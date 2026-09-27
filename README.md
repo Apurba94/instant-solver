@@ -154,3 +154,9 @@ overclaim:
 - **Generator validity.** A random generator that produces inputs violating the
   constraints yields fake counterexamples. The prompt guards against it and the
   generator is always shown to the user so it can be checked.
+
+---
+
+## Credits
+
+Created by **Janin A Apurba**. © 2026 Janin A Apurba. All rights reserved; no open-source licence has been chosen yet.
